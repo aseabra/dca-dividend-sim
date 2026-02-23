@@ -7,7 +7,7 @@ def _month_end_invest_dates(prices: pd.Series) -> pd.DatetimeIndex:
   Return month_end invest dates aligned to actual trading days in 'prices'
   Strategy: for each calendar month, invest on the last available trading day.
   """
-  monthly_last = prices.resample("M").last()
+  monthly_last = prices.resample("ME").last()
   return monthly_last.index
 
 def simulate_dca_dividends(
@@ -40,7 +40,7 @@ def simulate_dca_dividends(
   if not dividends.empty:
     dividends.index = pd.to_datetime(dividends.index).tz_localize(None)
     dividends = dividends.sort_index()
-    dividends = dividends(dividends > 0)
+    dividends = dividends[dividends > 0]
 
   invest_dates = set(_month_end_invest_dates(prices))
 
