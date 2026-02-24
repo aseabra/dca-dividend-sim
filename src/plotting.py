@@ -19,7 +19,7 @@ def plot_results(df: pd.DataFrame, title: str, output_html: str | Path | None = 
   fig.add_trace(go.Scatter(x=df.index, y=df["contributed"], name="Total contributed"))
   fig.add_trace(go.Scatter(x=df.index, y=df["value_no_drip_total"], name="Value (dividends paid out)"))
   fig.add_trace(go.Scatter(x=df.index, y=df["value_drip"], name="Value (dividends reinvested)"))
-  fig.add_trace(go.Scatter(x=df.index, y=df["Shares_no_drip"] * ["price"], name="Value (price only, no DRIP)"))
+  fig.add_trace(go.Scatter(x=df.index, y=df["shares_no_drip"] * df["price"], name="Value (price only, no DRIP)"))
 
   fig.update_layout(
     title=title,
